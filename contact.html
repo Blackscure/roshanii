@@ -81,27 +81,29 @@
                 <div class="col-lg-7 mb-5">
                     <div class="contact-form">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate" onsubmit="sendWhatsAppMessage(); return false;">
                             <div class="control-group">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                <input type="text" class="form-control" id="name" placeholder="Your Name" required />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                                <input type="email" class="form-control" id="email" placeholder="Your Email" required />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                <input type="text" class="form-control" id="subject" placeholder="Subject" required />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control" rows="6" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <textarea class="form-control" rows="6" id="message" placeholder="Message" required></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
                                 <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send Message</button>
                             </div>
                         </form>
+                    
+                    
                     </div>
                 </div>
                 <div class="col-lg-5 mb-5">
@@ -238,6 +240,50 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+        function sendWhatsAppMessage() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var subject = document.getElementById("subject").value;
+            var message = document.getElementById("message").value;
+
+            // Check if all fields are filled out
+             // Check if all fields are filled out
+             if (!name.trim()) {
+                document.getElementById("nameError").innerHTML = "Please enter your name.";
+                return;
+            }
+
+            if (!email.trim()) {
+                document.getElementById("emailError").innerHTML = "Please enter your email.";
+                return;
+            }
+
+            if (!subject.trim()) {
+                document.getElementById("subjectError").innerHTML = "Please enter a subject.";
+                return;
+            }
+
+            if (!message.trim()) {
+                document.getElementById("messageError").innerHTML = "Please enter your message.";
+                return;
+            }
+
+            // Construct the WhatsApp message
+            var whatsappMessage = "Name: " + name + "%0aEmail: " + email + "%0aSubject: " + subject + "%0aMessage: " + message;
+
+            // Encode the message for a URL
+            var encodedMessage = encodeURIComponent(whatsappMessage);
+
+            // Construct the WhatsApp URL
+            var recipientPhoneNumber = "+254758444107"; 
+            var whatsappURL = "https://wa.me/" + recipientPhoneNumber + "?text=" + encodedMessage;
+
+
+            // Open the WhatsApp URL in a new tab
+            window.open(whatsappURL, "_blank");
+        }
+    </script>
 </body>
 
 </html>

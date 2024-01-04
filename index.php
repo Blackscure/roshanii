@@ -422,7 +422,7 @@
                 var encodedMessage = encodeURIComponent(whatsappMessage);
 
                 // Construct the WhatsApp URL
-                var recipientPhoneNumber = "+254758444107"; // Replace with the actual recipient's phone number
+                var recipientPhoneNumber = "+254758444107"; 
                 var whatsappURL = "https://wa.me/" + recipientPhoneNumber + "?text=" + encodedMessage;
 
                 // Open the WhatsApp URL in a new tab
