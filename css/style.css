@@ -9865,35 +9865,4 @@ a.text-dark:hover, a.text-dark:focus {
   list-style-type: none;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-p {
-  color: #555;
-}
-
-ol {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 20px;
-}
-
-@media only screen and (max-width: 600px) {
-  .container {
-      padding: 10px;
-  }
-}
-
-
  
