@@ -30,9 +30,7 @@
 </head>
 
 <body>
-
  
-
     <!-- Navbar Start -->
     <div class="container-fluid bg-light position-relative shadow">
         <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
@@ -271,14 +269,17 @@
                             <h1 class="text-white m-0">Book A Slot</h1>
                         </div>
                         <div class="card-body rounded-bottom bg-primary p-5">
-                        <form id="myForm" onsubmit="emailSend(); reset(); return false;">
+                        <form id="myForm" onsubmit="sendWhatsAppMessage(); return false;">
                             <div class="form-group">
+                                <label for="name">Your Name:</label>
                                 <input type="text" class="form-control border-0 p-4" placeholder="Your Name" name="name" id="name" required="required" />
                             </div>
                             <div class="form-group">
-                            <input type="tel" class="form-control border-0 p-4" placeholder="Your Mobile Number" name="mobile" id="mobile" required="required" />
+                                <label for="mobile">Your Mobile Number:</label>
+                                <input type="tel" class="form-control border-0 p-4" placeholder="Your Mobile Number" name="mobile" id="mobile" required="required" />
                             </div>
                             <div class="form-group">
+                                <label for="selected_class">Select A Class:</label>
                                 <select class="custom-select border-0 px-4" style="height: 47px;" name="selected_class" id="selected_class">
                                     <option selected>Select A Class</option>
                                     <option value="1">Toddler Class</option>
@@ -290,6 +291,7 @@
                                 <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Book Now</button>
                             </div>
                         </form>
+
 
                         <div id="successMessage" style="display: none; color: green;">Booking request sent successfully!</div>
                         <div id="errorMessage" style="display: none; color: red;">Failed to send booking request. Please try again.</div>
@@ -408,42 +410,26 @@
     <script src="js/main.js"></script>
 
     <script>
-    function submitForm() {
-        // Call the emailSend function
-        emailSend();
-    }
+             function sendWhatsAppMessage() {
+                var name = document.getElementById("name").value;
+                var mobile = document.getElementById("mobile").value;
+                var selectedClass = document.getElementById("selected_class").value;
 
-    function emailSend() {
-        var userName = document.getElementById('name').value;
-        var mobile = document.getElementById('mobile').value;
-        var selectedClass = document.getElementById('selected_class').value;
+                // Construct the WhatsApp message
+                var whatsappMessage = "Hi, my name is " + name + ". My mobile number is " + mobile + ". I want to book the " + selectedClass + " class.";
 
-        var messageBody =
-            "Name: " + userName +
-            "<br/> Mobile: " + mobile +
-            "<br/> Selected Class: " + selectedClass;
+                // Encode the message for a URL
+                var encodedMessage = encodeURIComponent(whatsappMessage);
 
-        Email.send({
-            Host: "smtp.elasticemail.com",
-            Username: "roshaniinternationalschool01@gmail.com",
-            Password: "C2DBC6E99AE089EAEF00B4E79A41F87C479E",
-            To: 'wekesabuyahi@gmail.com',
-            From: "wekesabuyahi@gmail.com",
-            Subject: "This is the subject",
-            Body: messageBody
-        }).then(
-            message => {
-                if (message === 'OK') {
-                    swal("Successful", "Email sent successfully!", "success");
-                } else {
-                    swal("Error", "Error sending email!", "error");
-                }
-            }
-        );
-    }
+                // Construct the WhatsApp URL
+                var recipientPhoneNumber = "+254758444107"; // Replace with the actual recipient's phone number
+                var whatsappURL = "https://wa.me/" + recipientPhoneNumber + "?text=" + encodedMessage;
 
-  
-</script>
+                // Open the WhatsApp URL in a new tab
+                window.open(whatsappURL, "_blank");
+        }
+    </script>
+
 </body>
 
 </html>
